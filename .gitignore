@@ -1,0 +1,8 @@
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+# credenciais locais - nunca publicar
+PetVille.API/appsettings.Development.json
+**/tidb-connection.protected

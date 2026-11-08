@@ -1,0 +1,121 @@
+### Cadastro de cliente
+POST http://localhost:5041/api/clientes/cadastro
+Content-Type: application/json
+
+{
+    "nome": "Cliente Teste",
+    "email": "cliente@petville.com",
+    "telefone": "11999999999",
+    "senha": "PetVille@123"
+}
+
+### Login de cliente
+POST http://localhost:5041/api/clientes/login
+Content-Type: application/json
+
+{
+    "email": "cliente@petville.com",
+    "senha": "PetVille@123"
+}
+
+### Consultar perfil autenticado
+GET http://localhost:5041/api/clientes/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiODZkYmMxN2UtYzM3MS00ODdiLWIwNmYtNzE5OWNlYTM3MmYwIiwiZXhwIjoxNzk0MDgzMzc3fQ.blquSlpcHqTcPQLuEaMQgxYnmWWTc4sGY2w-2iXzvLs
+
+### Cadastrar pet
+POST http://localhost:5041/api/pets
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiODZkYmMxN2UtYzM3MS00ODdiLWIwNmYtNzE5OWNlYTM3MmYwIiwiZXhwIjoxNzk0MDgzMzc3fQ.blquSlpcHqTcPQLuEaMQgxYnmWWTc4sGY2w-2iXzvLs
+
+{
+    "nome": "Rex",
+    "especie": "Cachorro",
+    "raca": "Labrador",
+    "dataNascimento": "2023-05-10",
+    "sexo": "Macho"
+}
+
+### Listar pets do cliente autenticado
+GET http://localhost:5041/api/pets
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiZmVhZjVkOTAtODlhMC00OTVjLWE4NjgtYTliZjU1YmM4ZmVlIiwiZXhwIjoxNzk0MDg0MDY2fQ.QI3z_21RP074m9tvLLbJrxPIuRuj3lmY8ZzfruhiRA4
+
+### Consultar pet pelo ID
+GET http://localhost:5041/api/pets/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiZmVhZjVkOTAtODlhMC00OTVjLWE4NjgtYTliZjU1YmM4ZmVlIiwiZXhwIjoxNzk0MDg0MDY2fQ.QI3z_21RP074m9tvLLbJrxPIuRuj3lmY8ZzfruhiRA4
+
+### Atualizar pet
+PUT http://localhost:5041/api/pets/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiZmVhZjVkOTAtODlhMC00OTVjLWE4NjgtYTliZjU1YmM4ZmVlIiwiZXhwIjoxNzk0MDg0MDY2fQ.QI3z_21RP074m9tvLLbJrxPIuRuj3lmY8ZzfruhiRA4
+
+{
+    "nome": "Rex",
+    "especie": "Cachorro",
+    "raca": "Golden Retriever",
+    "dataNascimento": "2023-05-10",
+    "sexo": "Macho"
+}
+
+### Consultar pet atualizado
+GET http://localhost:5041/api/pets/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiZmVhZjVkOTAtODlhMC00OTVjLWE4NjgtYTliZjU1YmM4ZmVlIiwiZXhwIjoxNzk0MDg0MDY2fQ.QI3z_21RP074m9tvLLbJrxPIuRuj3lmY8ZzfruhiRA4
+
+### Excluir pet
+DELETE http://localhost:5041/api/pets/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiZmVhZjVkOTAtODlhMC00OTVjLWE4NjgtYTliZjU1YmM4ZmVlIiwiZXhwIjoxNzk0MDg0MDY2fQ.QI3z_21RP074m9tvLLbJrxPIuRuj3lmY8ZzfruhiRA4
+
+### Cadastrar servico
+POST http://localhost:5041/api/servicos
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiZmVhZjVkOTAtODlhMC00OTVjLWE4NjgtYTliZjU1YmM4ZmVlIiwiZXhwIjoxNzk0MDg0MDY2fQ.QI3z_21RP074m9tvLLbJrxPIuRuj3lmY8ZzfruhiRA4
+Content-Type: application/json
+
+{
+    "nome": "Banho",
+    "descricao": "Banho completo para caes",
+    "preco": 60.00,
+    "duracaoMinutos": 60,
+    "ativo": true
+}
+
+### Listar servicos
+GET http://localhost:5041/api/servicos
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiZmVhZjVkOTAtODlhMC00OTVjLWE4NjgtYTliZjU1YmM4ZmVlIiwiZXhwIjoxNzk0MDg0MDY2fQ.QI3z_21RP074m9tvLLbJrxPIuRuj3lmY8ZzfruhiRA4
+
+### Consultar servico
+GET http://localhost:5041/api/servicos/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiZmVhZjVkOTAtODlhMC00OTVjLWE4NjgtYTliZjU1YmM4ZmVlIiwiZXhwIjoxNzk0MDg0MDY2fQ.QI3z_21RP074m9tvLLbJrxPIuRuj3lmY8ZzfruhiRA4
+
+### Atualizar servico
+PUT http://localhost:5041/api/servicos/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiZmVhZjVkOTAtODlhMC00OTVjLWE4NjgtYTliZjU1YmM4ZmVlIiwiZXhwIjoxNzk0MDg0MDY2fQ.QI3z_21RP074m9tvLLbJrxPIuRuj3lmY8ZzfruhiRA4
+Content-Type: application/json
+
+{
+    "nome": "Banho Premium",
+    "descricao": "Banho completo com produtos especiais",
+    "preco": 80.00,
+    "duracaoMinutos": 90,
+    "ativo": true
+}
+
+### Excluir servico
+DELETE http://localhost:5041/api/servicos/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiZmVhZjVkOTAtODlhMC00OTVjLWE4NjgtYTliZjU1YmM4ZmVlIiwiZXhwIjoxNzk0MDg0MDY2fQ.QI3z_21RP074m9tvLLbJrxPIuRuj3lmY8ZzfruhiRA4
+
+GET http://localhost:5041/api/servicos/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiZmVhZjVkOTAtODlhMC00OTVjLWE4NjgtYTliZjU1YmM4ZmVlIiwiZXhwIjoxNzk0MDg0MDY2fQ.QI3z_21RP074m9tvLLbJrxPIuRuj3lmY8ZzfruhiRA4
+
+PUT http://localhost:5041/api/servicos/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiZmVhZjVkOTAtODlhMC00OTVjLWE4NjgtYTliZjU1YmM4ZmVlIiwiZXhwIjoxNzk0MDg0MDY2fQ.QI3z_21RP074m9tvLLbJrxPIuRuj3lmY8ZzfruhiRA4
+Content-Type: application/json
+
+{
+    "nome": "Banho Premium",
+    "descricao": "Banho completo com produtos especiais",
+    "preco": 80.00,
+    "duracaoMinutos": 90,
+    "ativo": true
+}
+
+DELETE http://localhost:5041/api/servicos/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJzdWIiOiIxIiwiZW1haWwiOiJjbGllbnRlQHBldHZpbGxlLmNvbSIsIm5hbWUiOiJDbGllbnRlIFRlc3RlIiwianRpIjoiZmVhZjVkOTAtODlhMC00OTVjLWE4NjgtYTliZjU1YmM4ZmVlIiwiZXhwIjoxNzk0MDg0MDY2fQ.QI3z_21RP074m9tvLLbJrxPIuRuj3lmY8ZzfruhiRA4

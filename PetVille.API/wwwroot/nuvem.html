@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PetVille • Configuração do TiDB Cloud</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font:16px system-ui,Segoe UI,Arial;background:#f3f8f4;color:#173c2c}header{background:#236b51;color:white;padding:26px max(24px,calc((100vw - 920px)/2))}h1{font-size:28px;margin:0}header p{margin:9px 0 0}a{color:#236b51}header a{color:#fff}main{max-width:920px;padding:22px 16px;margin:auto}.card{background:#fff;border:1px solid #d8e5dc;border-radius:14px;padding:24px;margin:14px 0;box-shadow:0 4px 15px #102a1a08}.pill{display:inline-block;background:#e7f2ed;border-radius:6px;padding:7px 12px;font-weight:700}label{display:block;font-weight:600;margin:12px 0 5px}input{width:100%;padding:13px;border:1px solid #cbd9cf;border-radius:8px;font:inherit}.cols{display:grid;grid-template-columns:2fr 1fr;gap:15px}button{border:0;background:#236b51;color:white;padding:13px 16px;border-radius:8px;font:inherit;font-weight:600;cursor:pointer}button:disabled{opacity:.5;cursor:wait}button.secondary{color:#236b51;background:#e7f2ed}button:hover{filter:brightness(.95)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.note{color:#587264;line-height:1.55}.danger{color:#a32424;font-weight:600;white-space:pre-wrap}.success{color:#126239;font-weight:600;white-space:pre-wrap}.small{font-size:13px}details{margin:14px 0}summary{cursor:pointer}code{background:#f0f5f1;border-radius:4px;padding:2px 5px}@media(max-width:620px){.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><h1>🐾 PetVille — Banco na nuvem</h1><p>Projeto de faculdade • Configuração em uma página, sem editar arquivos</p><p><a href="/">Painel administrativo</a> · <a href="/cliente.html">Área do cliente</a></p></header>
+<main>
+<section class="card"><h2>1. Situação do sistema</h2><p class="pill" id="state">Consultando...</p><p id="server" class="note"></p><div class="actions"><button type="button" class="secondary" id="refresh">Verificar conexão</button><button type="button" class="secondary" id="local">Usar MySQL local</button><button type="button" class="secondary" id="saved">Usar TiDB salvo</button></div></section>
+<section class="card"><h2>2. Conectar o TiDB Cloud</h2><p class="note">No <a href="https://tidbcloud.com/" target="_blank" rel="noopener noreferrer">TiDB Cloud</a>, entre na instância <b>Starter — MySQL Compatible</b> e clique em <b>Connect</b>. Copie <b>Host</b>, <b>Port</b>, <b>Username</b> e <b>Password</b> para os campos abaixo. A senha aqui é a do <b>TiDB</b>, não a do MySQL do computador nem a senha da sua conta do site.</p>
+<form id="form">
+<label for="host">Host / servidor (da tela Connect)</label><input id="host" autocomplete="off" required placeholder="gateway....tidbcloud.com" spellcheck="false">
+<div class="cols"><div><label for="user">Username / usuário</label><input id="user" required autocomplete="off" placeholder="...root" spellcheck="false"></div><div><label for="port">Porta</label><input id="port" required type="number" min="1" max="65535" value="4000"></div></div>
+<label for="pass">Password / senha do banco TiDB</label><input id="pass" type="password" required autocomplete="new-password" placeholder="A senha criada no Connect">
+<label for="db">Nome do banco de dados</label><input id="db" required value="petville" pattern="[a-zA-Z][a-zA-Z0-9_]{0,40}">
+<details><summary>Certificado CA (somente se o TiDB exigir)</summary><label for="ca">Caminho completo do arquivo .pem no Windows</label><input id="ca" placeholder="C:\\certificados\\isrgrootx1.pem"><p class="small note">Normalmente o Windows valida certificados TLS usando a loja de certificados do sistema. Se necessário, baixe o certificado CA indicado pelo TiDB.</p></details>
+<p class="note">Conexão protegida por TLS com verificação do certificado e do host (<code>VerifyFull</code>). O programa tenta criar o banco <code>petville</code> e as tabelas automaticamente. A senha da nuvem fica protegida na pasta do seu usuário Windows e não entra no ZIP.</p>
+<button id="connect" type="submit">Conectar, preparar tabelas e ativar nuvem</button>
+</form><p id="message" role="status" aria-live="polite"></p></section>
+<section class="card"><h2>3. Comprovar o armazenamento</h2><p class="note">Após ativar a nuvem, abra a <a href="/cliente.html">área do cliente</a>, crie um cadastro de teste e um pet. Depois, abra o <b>SQL Editor</b> do TiDB Cloud, selecione o banco <code>petville</code> e confira as tabelas <code>Clientes</code> e <code>Pets</code>.</p><p class="note"><b>Atenção:</b> os dados antigos do MySQL local não são transferidos automaticamente para a nuvem. Eles continuam preservados no computador e podem ser acessados pelo botão <b>Usar MySQL local</b>. Para apresentar o TiDB, cadastre um usuário novo.</p><p class="note">O sistema web e a API continuam no seu computador (<code>localhost:5041</code>). O que estará na nuvem é <b>o banco de dados</b>.</p></section>
+</main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+async function req(url, data) {
+ const response=await fetch(url,{method:data?'POST':'GET',headers:{...(data?{'Content-Type':'application/json'}:{})},...(data?{body:JSON.stringify(data)}:{})});
+ let body={};try{body=await response.json()}catch{}
+ if(!response.ok) throw Error(body.mensagem||`Erro HTTP ${response.status}`);
+ return body;
+}
+async function status(){
+ $('state').textContent='Verificando...';
+ try {let s=await req('/api/configuracao/status');$('state').textContent=(s.online?'🟢 ':'🔴 ')+s.modo+(s.online?' • conectado':' • sem conexão');$('server').textContent=s.nuvemConfigurada?'TiDB cadastrado: '+s.servidor:'TiDB ainda não configurado.';$('saved').disabled=!s.nuvemConfigurada;}
+ catch(e){$('state').textContent='Não foi possível consultar a API';$('server').textContent=e.message}
+}
+function show(text, ok){$('message').className=ok?'success':'danger';$('message').textContent=text}
+$('form').addEventListener('submit',async e=>{
+ e.preventDefault();$('connect').disabled=true;show('Testando conexão e preparando o banco. Se sua conta estiver sem instância, volte ao TiDB Cloud e crie uma Starter MySQL-compatible.',true);
+ try{let s=await req('/api/configuracao/tidb',{host:$('host').value.trim(),port:Number($('port').value),user:$('user').value.trim(),password:$('pass').value,database:$('db').value.trim(),caCertificateFile:$('ca').value.trim()||null});$('pass').value='';show(s.mensagem+' Abra a área do cliente para cadastrar um usuário NOVO na nuvem.',true);await status()}
+ catch(e){show(e.message,false)}finally{$('connect').disabled=false}
+});
+$('refresh').onclick=status;
+$('local').onclick=async()=>{try{let s=await req('/api/configuracao/local',{});show(s.mensagem,true);await status()}catch(e){show(e.message,false)}};
+$('saved').onclick=async()=>{try{let s=await req('/api/configuracao/usar-nuvem-salva',{});show(s.mensagem,true);await status()}catch(e){show(e.message,false)}};
+status();
+</script>
+</body></html>

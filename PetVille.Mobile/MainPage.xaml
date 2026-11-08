@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PetVille.Mobile.MainPage"
+             Shell.NavBarIsVisible="False"
+             Title="PetVille"
+             BackgroundColor="#F3F8F5">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Cores explícitas: os campos continuam legíveis no modo escuro do Samsung. -->
+            <Color x:Key="CorVerde">#17664C</Color>
+            <Color x:Key="CorTexto">#18332B</Color>
+            <Color x:Key="CorSecundaria">#62776D</Color>
+
+            <Style x:Key="TituloSecao" TargetType="Label">
+                <Setter Property="TextColor" Value="#18332B" />
+                <Setter Property="FontSize" Value="21" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+            <Style x:Key="RotuloCampo" TargetType="Label">
+                <Setter Property="TextColor" Value="#294F41" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Margin" Value="1,0,0,3" />
+            </Style>
+            <Style x:Key="CampoEntrada" TargetType="Entry">
+                <Setter Property="TextColor" Value="#18332B" />
+                <Setter Property="PlaceholderColor" Value="#71847A" />
+                <Setter Property="BackgroundColor" Value="#FFFFFF" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="HeightRequest" Value="52" />
+                <Setter Property="ClearButtonVisibility" Value="WhileEditing" />
+            </Style>
+            <Style x:Key="CampoSelecao" TargetType="Picker">
+                <Setter Property="TextColor" Value="#18332B" />
+                <Setter Property="TitleColor" Value="#71847A" />
+                <Setter Property="BackgroundColor" Value="#FFFFFF" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="HeightRequest" Value="52" />
+            </Style>
+            <Style x:Key="BotaoVerde" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#17664C" />
+                <Setter Property="TextColor" Value="#FFFFFF" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="HeightRequest" Value="54" />
+                <Setter Property="CornerRadius" Value="14" />
+            </Style>
+            <Style x:Key="BotaoClaro" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#E7F2EB" />
+                <Setter Property="TextColor" Value="#17664C" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="HeightRequest" Value="48" />
+                <Setter Property="CornerRadius" Value="12" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView BackgroundColor="#F3F8F5">
+        <VerticalStackLayout Padding="18,22,18,42" Spacing="17">
+            <!-- Marca -->
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                <Border WidthRequest="48" HeightRequest="48" BackgroundColor="#DFEFE5"
+                        StrokeThickness="0" VerticalOptions="Center">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="14" /></Border.StrokeShape>
+                    <Label Text="🐾" FontSize="25" HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center" TextColor="#17664C" />
+                </Border>
+                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="1">
+                    <Label Text="PetVille" FontSize="26" FontAttributes="Bold" TextColor="#134D3B" />
+                    <Label Text="Cuidado com carinho para seu pet" FontSize="12" TextColor="#62776D" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Imagem incluída no aplicativo, inclusive sem internet. -->
+            <Border HeightRequest="172" StrokeThickness="0" BackgroundColor="#114732">
+                <Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape>
+                <Grid>
+                    <Image Source="petville_cachorros.jpg" Aspect="AspectFill" />
+                    <BoxView Color="#092F26" Opacity="0.44" />
+                    <VerticalStackLayout Padding="22,18" VerticalOptions="End" Spacing="4">
+                        <Label Text="SEJA BEM-VINDO" FontSize="10" CharacterSpacing="2"
+                               FontAttributes="Bold" TextColor="#C8F3D6" />
+                        <Label Text="Seu melhor amigo merece o melhor cuidado."
+                               FontSize="21" FontAttributes="Bold" TextColor="#FFFFFF"
+                               LineBreakMode="WordWrap" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- Login e criação de conta -->
+            <VerticalStackLayout x:Name="AreaLogin" Spacing="12">
+                <Border BackgroundColor="#FFFFFF" Stroke="#E1EDE5" StrokeThickness="1" Padding="20">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="21" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="14">
+                        <VerticalStackLayout Spacing="4">
+                            <Label x:Name="TituloLogin" Text="Entre na sua conta"
+                                   Style="{StaticResource TituloSecao}" />
+                            <Label Text="Acompanhe seus pets e seus agendamentos em um só lugar."
+                                   TextColor="#62776D" FontSize="13" />
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout x:Name="GrupoNome" IsVisible="False" Spacing="3">
+                            <Label Text="Nome completo" Style="{StaticResource RotuloCampo}" />
+                            <Border Stroke="#D7E6DC" StrokeThickness="1" BackgroundColor="White" Padding="8,0">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="13" /></Border.StrokeShape>
+                                <Entry x:Name="Nome" Placeholder="Como podemos chamar você?"
+                                       Style="{StaticResource CampoEntrada}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout x:Name="GrupoTelefone" IsVisible="False" Spacing="3">
+                            <Label Text="Telefone" Style="{StaticResource RotuloCampo}" />
+                            <Border Stroke="#D7E6DC" StrokeThickness="1" BackgroundColor="White" Padding="8,0">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="13" /></Border.StrokeShape>
+                                <Entry x:Name="Telefone" Placeholder="(11) 99999-9999" Keyboard="Telephone"
+                                       Style="{StaticResource CampoEntrada}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="3">
+                            <Label Text="E-mail" Style="{StaticResource RotuloCampo}" />
+                            <Border Stroke="#D7E6DC" StrokeThickness="1" BackgroundColor="White" Padding="8,0">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="13" /></Border.StrokeShape>
+                                <Entry x:Name="Email" Placeholder="seuemail@exemplo.com" Keyboard="Email"
+                                       Style="{StaticResource CampoEntrada}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="3">
+                            <Label Text="Senha" Style="{StaticResource RotuloCampo}" />
+                            <Border Stroke="#D7E6DC" StrokeThickness="1" BackgroundColor="White" Padding="8,0">
+                                <Border.StrokeShape><RoundRectangle CornerRadius="13" /></Border.StrokeShape>
+                                <Entry x:Name="Senha" Placeholder="Digite sua senha" IsPassword="True"
+                                       Style="{StaticResource CampoEntrada}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <Button x:Name="BotaoLogin" Text="Entrar na minha conta"
+                                Style="{StaticResource BotaoVerde}" Clicked="EntrarOuCadastrar" />
+                        <Button x:Name="BotaoAlternar" Text="Não tem conta? Cadastre-se"
+                                Style="{StaticResource BotaoClaro}" Clicked="Alternar" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Endereço da API configurável: útil no celular real sem editar C#. -->
+                <Button Text="⚙  Configurar conexão com o servidor"
+                        BackgroundColor="Transparent" TextColor="#486E5E"
+                        FontSize="12" Clicked="AlternarConfiguracao" />
+                <Border x:Name="AreaServidor" IsVisible="False"
+                        BackgroundColor="#FFFFFF" Stroke="#D7E6DC" StrokeThickness="1" Padding="17">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="9">
+                        <Label Text="Endereço da API" Style="{StaticResource RotuloCampo}" />
+                        <Entry x:Name="EnderecoApi" Placeholder="https://minha-api.onrender.com"
+                               Keyboard="Url"
+                               Style="{StaticResource CampoEntrada}" />
+                        <Label Text="No Samsung conectado por USB, use http://127.0.0.1:5041 e execute adb reverse tcp:5041 tcp:5041 no computador."
+                               FontSize="12" TextColor="#62776D" />
+                        <Button Text="Salvar endereço" Style="{StaticResource BotaoClaro}"
+                                Clicked="SalvarConfiguracao" />
+                        <Button Text="Testar comunicação com a API" Style="{StaticResource BotaoVerde}"
+                                Clicked="TestarConexao" />
+                        <Label x:Name="ResultadoConexao" Text="Teste de conexão ainda não realizado."
+                               FontSize="12" TextColor="#486E5E" LineBreakMode="WordWrap" />
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Área do cliente: mesmo visual dos cartões do site -->
+            <VerticalStackLayout x:Name="AreaInterna" IsVisible="False" Spacing="16">
+                <Border BackgroundColor="#E3F3E8" StrokeThickness="0" Padding="17">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="18" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="5">
+                        <Label x:Name="Saudacao" Text="Olá!" TextColor="#134D3B"
+                               FontSize="23" FontAttributes="Bold" />
+                        <Label Text="Bom ter você de volta! Tudo pronto para cuidar do seu pet?"
+                               FontSize="13" TextColor="#486A58" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border BackgroundColor="#FFFFFF" Stroke="#E1EDE5" StrokeThickness="1" Padding="18">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="🐾  Meus pets" Style="{StaticResource TituloSecao}" />
+                        <VerticalStackLayout x:Name="ListaPets" Spacing="7" />
+                        <Label Text="Cadastrar outro pet" Style="{StaticResource RotuloCampo}" />
+                        <Entry x:Name="PetNome" Placeholder="Nome do pet" Style="{StaticResource CampoEntrada}" />
+                        <Entry x:Name="PetEspecie" Placeholder="Espécie (cachorro, gato...)"
+                               Style="{StaticResource CampoEntrada}" />
+                        <Entry x:Name="PetRaca" Placeholder="Raça (opcional)" Style="{StaticResource CampoEntrada}" />
+                        <Button Text="+ Cadastrar pet" Style="{StaticResource BotaoVerde}" Clicked="SalvarPet" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border BackgroundColor="#FFFFFF" Stroke="#E1EDE5" StrokeThickness="1" Padding="18">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="📅  Agendar um serviço" Style="{StaticResource TituloSecao}" />
+                        <Border BackgroundColor="#E5F3E9" StrokeThickness="0" Padding="13">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="12" /></Border.StrokeShape>
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Horário de funcionamento" FontAttributes="Bold"
+                                       TextColor="#17543D" FontSize="13" />
+                                <Label Text="Segunda a sexta • 08:00 às 18:00. Os serviços devem terminar até as 18h."
+                                       TextColor="#345E48" FontSize="12" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Label Text="Escolha o pet" Style="{StaticResource RotuloCampo}" />
+                        <Picker x:Name="PetPicker" Title="Selecione um pet"
+                                ItemDisplayBinding="{Binding Nome}" Style="{StaticResource CampoSelecao}" />
+                        <Label Text="Serviço" Style="{StaticResource RotuloCampo}" />
+                        <Picker x:Name="ServicoPicker" Title="Selecione um serviço"
+                                ItemDisplayBinding="{Binding Nome}" Style="{StaticResource CampoSelecao}" />
+                        <Label Text="Dia do atendimento" Style="{StaticResource RotuloCampo}" />
+                        <DatePicker x:Name="DataAgendamento" TextColor="#18332B"
+                                    BackgroundColor="#FFFFFF" FontSize="15" Format="dd/MM/yyyy"
+                                    HeightRequest="52" />
+                        <Label Text="Horário disponível" Style="{StaticResource RotuloCampo}" />
+                        <Picker x:Name="HorarioPicker" Title="Escolha um horário"
+                                Style="{StaticResource CampoSelecao}" />
+                        <Label Text="Observações (opcional)" Style="{StaticResource RotuloCampo}" />
+                        <Entry x:Name="Observacao" Placeholder="Alguma orientação especial?"
+                               Style="{StaticResource CampoEntrada}" />
+                        <Button Text="✓  Confirmar agendamento" Style="{StaticResource BotaoVerde}"
+                                Clicked="Agendar" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border BackgroundColor="#FFFFFF" Stroke="#E1EDE5" StrokeThickness="1" Padding="18">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="20" /></Border.StrokeShape>
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="🗓  Meus agendamentos" Style="{StaticResource TituloSecao}" />
+                        <VerticalStackLayout x:Name="ListaAgendamentos" Spacing="8" />
+                        <Button Text="↻ Atualizar informações" Style="{StaticResource BotaoClaro}"
+                                Clicked="Atualizar" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Button Text="Sair da minha conta" BackgroundColor="#FDEEEB"
+                        TextColor="#9E4239" FontAttributes="Bold" CornerRadius="13"
+                        HeightRequest="49" Clicked="Sair" />
+            </VerticalStackLayout>
+
+            <Label Text="PETVILLE  •  CUIDADO, SAÚDE E BEM-ESTAR" TextColor="#7E9487"
+                   HorizontalTextAlignment="Center" FontSize="10" CharacterSpacing="1" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
